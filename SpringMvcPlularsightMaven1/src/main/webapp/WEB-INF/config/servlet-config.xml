@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+ 
+	<mvc:annotation-driven/>
+	<context:component-scan base-package="com.pluralsight"/>
+	
+	<mvc:interceptors>   <!-- spring mvc would consider this class before every control method-->
+		<mvc:interceptor>
+		<mvc:mapping path="src/main/webapp/WEB-INF/jsp/AdmissionForm.jsp"/>  <!--  now spring will run this interceptor class only for admissionForm m -->
+		<bean class="com.pluralsight.admission.controller.DayOfWeekBasedAccessInterceptor" />
+		</mvc:interceptor>  
+	</mvc:interceptors>
+	
+ <!--  	<context:component-scan base-package="com.pluralsight.model"/>  -->
+
+<!-- * --> 	
+	<!-- 
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+	 -->
+	   
+	 <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="/WEB-INF/studentmessages"	/>	
+		<property name="cacheSeconds" value="1" />			<!-- ,..by writing this code we do not need to restart the server  it will update after every value="1" 1 second-->
+	</bean>
+	
+	
+
+	 
+	
+	 <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" 
+	 p:prefix="/WEB-INF/jsp/" p:suffix=".jsp" /> 
+	 
+	 
+
+	 
+
+
+</beans>
+
